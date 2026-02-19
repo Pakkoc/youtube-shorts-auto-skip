@@ -20,7 +20,7 @@
   setInterval(() => {
     const videos = document.querySelectorAll("video");
     videos.forEach((video) => {
-      if (video.duration > 0 && video.currentTime >= video.duration - 0.3) {
+      if (video.duration > 0 && video.currentTime >= video.duration - 0.5) {
         if (!skipped) {
           skipped = true;
           goToNextShort();
@@ -30,5 +30,5 @@
         skipped = false;
       }
     });
-  }, 500);
+  }, 250);
 })();
