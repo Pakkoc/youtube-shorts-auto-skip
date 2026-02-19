@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Shorts Auto Skip",
+  "version": "1.0.0",
+  "description": "YouTube Shorts 영상이 끝나면 자동으로 다음 Shorts로 이동합니다.",
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/shorts/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
