@@ -1,8 +1,11 @@
 (() => {
   let skipped = false;
 
+  function isOnShorts() {
+    return location.pathname.startsWith("/shorts/");
+  }
+
   function goToNextShort() {
-    // 다음 Shorts 버튼 클릭
     const nextButton = document.querySelector(
       '[aria-label="Next video"], [aria-label="다음 동영상"], #navigation-button-down button'
     );
@@ -10,25 +13,23 @@
       nextButton.click();
       return;
     }
-    // fallback: 키보드 아래 화살표
     document.dispatchEvent(
       new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true })
     );
   }
 
-  // 모든 video 요소를 주기적으로 체크
   setInterval(() => {
+    if (!isOnShorts()) return;
+
     const videos = document.querySelectorAll("video");
     videos.forEach((video) => {
-      if (video.duration > 0 && video.currentTime >= video.duration - 0.5) {
+      if (video.duration > 0 && video.currentTime >= video.duration - 0.3) {
         if (!skipped) {
           skipped = true;
           goToNextShort();
+          setTimeout(() => { skipped = false; }, 3000);
         }
-      } else if (video.currentTime > 0 && video.currentTime < video.duration - 1) {
-        // 새 영상이 재생 중이면 skipped 플래그 리셋
-        skipped = false;
       }
     });
-  }, 250);
+  }, 500);
 })();
